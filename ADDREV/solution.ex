@@ -1,30 +1,30 @@
 defmodule ReverseAdder do
-  defp parse(l) do
+  defp _parse_input_line(l) do
     String.trim(l)
     |> String.split(" ")
   end
 
-  defp reverse(s) do
+  defp _reverse(s) do
     String.reverse(s)
   end
 
-  defp string_to_int(s) do
+  defp _convert_to(s, :integer) do
     Integer.parse(s)
     |> elem(0)
   end
 
-  defp int_to_string(n) do
+  defp _convert_to(n, :string) do
     Integer.to_string(n)
   end
 
   def apply(l) do
-    parse(l)
-    |> Enum.map(&reverse(&1))
-    |> Enum.map(&string_to_int(&1))
+    _parse_input_line(l)
+    |> Enum.map(&_reverse(&1))
+    |> Enum.map(&_convert_to(&1, :integer))
     |> Enum.reduce(&(&1 + &2))
-    |> int_to_string
-    |> reverse
-    |> string_to_int
+    |> _convert_to(:string)
+    |> _reverse
+    |> _convert_to(:integer)
   end
 end
 
