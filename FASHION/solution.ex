@@ -28,7 +28,7 @@ defmodule Hotness do
     |> Enum.sum
   end
 
- def calcule(chunk) do
+ def calculate(chunk) do
     men = Enum.at(chunk, 1)
     women = Enum.at(chunk, 2)
     _mmds(_sort_hotness(men), _sort_hotness(women))
@@ -40,5 +40,5 @@ end
 IO.gets("")
 
 Enum.chunk(Stream.map(IO.stream(:stdio, :line), &IOUtils.parse_input_line(&1)), 3)
-|> Enum.map(&Hotness.calcule(&1))
+|> Enum.map(&Hotness.calculate(&1))
 
