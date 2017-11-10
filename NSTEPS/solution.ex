@@ -15,7 +15,7 @@ end
 
 defmodule StepCounter do
   defp _steps(x, x) when x >= 0, do: 2 * x - rem(x, 2)
-  defp _steps(x, y) when x >= 2 and y == x - 2, do: 2 * (x - 1) - rem(x, 2)
+  defp _steps(x, y) when x >= 2 and y == x - 2, do: _steps(x, x) - 2
   defp _steps(_, _), do: "No Number"
 
   defp _invoke_steps([x, y]), do: _steps(x, y)
@@ -27,4 +27,6 @@ defmodule StepCounter do
 end
 
 IO.gets("")
-Enum.each Stream.map(IO.stream(:stdio, :line), &StepCounter.count(&1)), &IO.puts(&1)
+IO.stream(:stdio, :line)
+|> Stream.map(&StepCounter.count(&1))
+|> Enum.each(&IO.puts(&1))
