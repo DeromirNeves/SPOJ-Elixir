@@ -11,6 +11,18 @@ defmodule IOUtils do
   end
 end
 
+defmodule MMDSMath do
+  defp _mutiply(x, acc, b) do
+    {x * Enum.at(b, acc), acc + 1}
+  end
+
+  def calculate_mmds(a, b) do
+    Enum.map_reduce(a, 0, &_mutiply(&1, &2, b))
+    |> elem(0)
+    |> Enum.sum
+  end
+end
+
 defmodule Hotness do
   
   defp _sort_hotness(list) do
@@ -18,20 +30,10 @@ defmodule Hotness do
     |> Enum.sort
   end
 
-  defp _mutiply_hotness(x, acc, b) do
-    {x * Enum.at(b, acc), acc + 1}
-  end
-
-  defp _mmds(a, b) do
-    Enum.map_reduce(a, 0, &_mutiply_hotness(&1, &2, b))
-    |> elem(0)
-    |> Enum.sum
-  end
-
  def calculate(chunk) do
     men = Enum.at(chunk, 1)
     women = Enum.at(chunk, 2)
-    _mmds(_sort_hotness(men), _sort_hotness(women))
+    MMDSMath.calculate_mmds(_sort_hotness(men), _sort_hotness(women))
     |> IO.puts
  end
 
