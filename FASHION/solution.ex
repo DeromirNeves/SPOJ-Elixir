@@ -41,6 +41,6 @@ end
 
 IO.gets("")
 
-Enum.chunk(Stream.map(IO.stream(:stdio, :line), &IOUtils.parse_input_line(&1)), 3)
+Enum.chunk_every(Stream.map(IO.stream(:stdio, :line), &IOUtils.parse_input_line(&1)), 3)
 |> Enum.map(&Hotness.calculate(&1))
 
